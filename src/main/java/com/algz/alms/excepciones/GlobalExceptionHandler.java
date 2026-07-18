@@ -70,4 +70,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ApiError.of(500, "Error interno", "Ha ocurrido un error inesperado"));
     }
+
+    @ExceptionHandler(PersonaNoEncontradaException.class)
+    public ResponseEntity<ApiError> handlePersonanoEncontrada(PersonaNoEncontradaException ex) {
+        log.warn("Persona no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
 }
