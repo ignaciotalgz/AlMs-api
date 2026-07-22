@@ -1,0 +1,48 @@
+name: CI — Tests
+
+# Se ejecuta en:
+# 1. Cualquier PR que apunte a main
+# 2. Push directo a main (por si mergeas desde GitHub UI)
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Clonar el código del branch que disparó el workflow
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Instalar Java 17 (Temurin = distribución libre de OpenJDK)
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'     # cachea ~/.m2 entre runs para acelerar builds
+
+      # 3. Dar permisos de ejecución al wrapper (necesario en Linux)
+      - name: Make mvnw executable
+        run: chmod +x mvnw
+
+      # 4. Compilar y correr todos los tests
+      # H2 está en scope test, así que no necesita PostgreSQL ni secrets reales.
+      # El src/test/resources/application.properties sobreescribe todo lo que
+      # necesita, sin depender de variables de entorno de Render.
+      - name: Run tests
+        run: ./mvnw clean test
+
+      # 5. Publicar el reporte de tests en la UI de GitHub (opcional pero útil)
+      - name: Publish test report
+        uses: dorny/test-reporter@v1
+        if: always()     # corre incluso si el paso anterior falló
+        with:
+          name: JUnit Tests
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
