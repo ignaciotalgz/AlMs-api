@@ -49,17 +49,29 @@
         <optional>true</optional>
     </dependency>
 
-    <!-- ─── Test ─────────────────────────────────────────── -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>  <!-- ← el único correcto -->
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>com.h2database</groupId>
-        <artifactId>h2</artifactId>
-        <scope>test</scope>                                 <!-- ← BD en memoria para tests -->
-    </dependency>
+    <!-- ─── Test ─────────────────────────────────────────────── -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>com.h2database</groupId>
+		<artifactId>h2</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+
+	<!-- NUEVO — módulo separado en Spring Boot 4.x para @DataJpaTest -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-jpa-test</artifactId>
+		<scope>test</scope>
+	</dependency>
 
 	<!-- ─── Seguridad ──────────────────────────────────────────── -->
 <dependency>
