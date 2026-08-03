@@ -31,6 +31,11 @@ public class PersonaControlador {
     public ResponseEntity<List<PersonaResponse>> listar() {
         return ResponseEntity.ok(personaServicio.listar());
     }
+    @GetMapping("/{personaId}")
+        public ResponseEntity<PersonaResponse> obtener(@PathVariable UUID personaId) {
+            return ResponseEntity.ok(personaServicio.obtenerPorId(personaId));
+    }
+
     @PostMapping
     public ResponseEntity<PersonaResponse> crear(@Valid @RequestBody PersonaRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(personaServicio.crear(request));

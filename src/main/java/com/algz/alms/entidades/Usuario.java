@@ -12,7 +12,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.algz.alms.enumeraciones.Rol;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,7 +37,18 @@ public class Usuario implements UserDetails{
     private String nombre;
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
     private Rol rol;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "persona_id")
+    private Persona persona;
+
+    public String getNombreVisible() {
+        if (persona != null) {
+            return persona.getNombres() + " " + persona.getApellidos();
+        }
+        return nombre;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

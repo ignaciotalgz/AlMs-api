@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
@@ -75,5 +76,42 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> handlePersonanoEncontrada(PersonaNoEncontradaException ex) {
         log.warn("Persona no encontrada: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+
+    @ExceptionHandler(AlumnoNoEncontradoException.class)
+    public ResponseEntity<ApiError> handleAlumnoNoEncontrado(AlumnoNoEncontradoException ex) {
+        log.warn("Alumno no encontrado: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+
+    @ExceptionHandler(DocenteNoEncontradoException.class)
+    public ResponseEntity<ApiError> handleDocenteNoEncontrado(DocenteNoEncontradoException ex) {
+        log.warn("Docente no encontrado: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+
+    @ExceptionHandler(InvitacionInvalidaException.class)
+    public ResponseEntity<ApiError> handleInvitacionInvalida(InvitacionInvalidaException ex) {
+        log.warn("Intento de registro con invitación inválida: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiError.of(400, "Invitación inválida", ex.getMessage()));
+    }
+
+    @ExceptionHandler(InvitacionNoEncontradaException.class)
+    public ResponseEntity<ApiError> handleInvitacionNoEncontrada(InvitacionNoEncontradaException ex) {
+        log.warn("Invitación no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+
+    @ExceptionHandler(PersonaDuplicadaException.class)
+    public ResponseEntity<ApiError> handlePersonaDuplicada(PersonaDuplicadaException ex) {
+        log.warn("Intento de alta con documento duplicado: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ApiError.of(409, "Conflicto", ex.getMessage()));
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiError> handleAccessDenied(AccessDeniedException ex) {
+        log.warn("Acceso denegado: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(ApiError.of(403, "Acceso denegado", "No tenés permisos para realizar esta acción"));
     }
 }
