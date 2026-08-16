@@ -22,7 +22,8 @@ import com.algz.alms.repositorios.DocenteRepositorio;
 import com.algz.alms.repositorios.InvitacionRegistroRepositorio;
 import com.algz.alms.repositorios.PersonaRepositorio;
 import com.algz.alms.repositorios.UsuarioRepositorio;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import tools.jackson.databind.ObjectMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;

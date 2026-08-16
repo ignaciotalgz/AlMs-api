@@ -21,7 +21,8 @@ import com.algz.alms.excepciones.PersonaDuplicadaException;
 import com.algz.alms.excepciones.PersonaNoEncontradaException;
 import com.algz.alms.filtros.JwtAuthenticationFilter;
 import com.algz.alms.servicios.PersonaServicio;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import tools.jackson.databind.ObjectMapper;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
