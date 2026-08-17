@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -19,16 +18,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Persona {
+public class Carrera {
     @Id
     @UuidGenerator
-    private UUID personaId;
-    @Column(unique = true)
-    private String documento;
-    private String apellidos;
-    private String nombres;
-    private String email;
-    private String telefono;
-    private String domicilio;
+    private UUID carreraId;
+    private String nombre;
     private boolean baja;
 }

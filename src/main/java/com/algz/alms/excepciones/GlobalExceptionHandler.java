@@ -114,4 +114,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(ApiError.of(403, "Acceso denegado", "No tenés permisos para realizar esta acción"));
     }
+
+    @ExceptionHandler(CarreraNoEncontradaException.class)
+    public ResponseEntity<ApiError> handleCarreraNoEncontrada(CarreraNoEncontradaException ex) {
+        log.warn("Carrera no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+
+    @ExceptionHandler(PlanEstudioNoEncontradoException.class)
+    public ResponseEntity<ApiError> handlePlanEstudioNoEncontrado(PlanEstudioNoEncontradoException ex) {
+        log.warn("Plan de estudio no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
 }

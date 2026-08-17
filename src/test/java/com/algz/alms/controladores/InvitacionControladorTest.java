@@ -33,7 +33,8 @@ import com.algz.alms.excepciones.InvitacionInvalidaException;
 import com.algz.alms.excepciones.InvitacionNoEncontradaException;
 import com.algz.alms.filtros.JwtAuthenticationFilter;
 import com.algz.alms.servicios.InvitacionServicio;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import tools.jackson.databind.ObjectMapper;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;

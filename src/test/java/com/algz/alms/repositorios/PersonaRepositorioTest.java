@@ -76,6 +76,7 @@ public class PersonaRepositorioTest {
     @DisplayName("findByBajaFalse retorna lista vacia si todos estan dados de baja")
     void findByBajaFalse_listaVaciaSiTodosInactivos() {
         personaRepositorio.deleteAll();
+        personaRepositorio.flush();
         personaRepositorio.save(Persona.builder()
             .documento("00000000")
             .apellidos("Apellidos")
