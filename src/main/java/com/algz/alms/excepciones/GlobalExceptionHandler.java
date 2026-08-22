@@ -20,6 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiError> handleIllegalArgument(IllegalArgumentException ex) {
+        log.warn("Solicitud invalida: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiError.of(400, "Solicitud invalida", ex.getMessage()));
+    }
+
     @ExceptionHandler(UsuarioDuplicadoException.class)
     public ResponseEntity<ApiError> handleDuplicado(UsuarioDuplicadoException ex) {
         log.warn("Intento de registro con email duplicado: {}", ex.getMessage());
@@ -124,6 +130,31 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PlanEstudioNoEncontradoException.class)
     public ResponseEntity<ApiError> handlePlanEstudioNoEncontrado(PlanEstudioNoEncontradoException ex) {
         log.warn("Plan de estudio no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+    @ExceptionHandler(AsignaturaCorrelativaNoEncontradaException.class)
+    public ResponseEntity<ApiError> handleAsignaturaCorrelativaNoEncontrada(AsignaturaCorrelativaNoEncontradaException ex) {
+        log.warn("Correlativa no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+    @ExceptionHandler(AsignaturaNoEncontradaException.class)
+    public ResponseEntity<ApiError> handleAsignaturaNoEncontradaException(AsignaturaNoEncontradaException ex) {
+        log.warn("Asignatura no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+    @ExceptionHandler(DocenteAsignaturaNoEncontradaException.class)
+    public ResponseEntity<ApiError> handleDocenteAsignaturaNoEncontrada(DocenteAsignaturaNoEncontradaException ex) {
+        log.warn("Asignacion de Docente no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+    @ExceptionHandler(ModuloAsignaturaNoEncontradaException.class)
+    public ResponseEntity<ApiError> handleModuloAsignaturaNoEncontrada(ModuloAsignaturaNoEncontradaException ex) {
+        log.warn("Asignacion de Asignatura no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+    @ExceptionHandler(ModuloNoEncontradoException.class)
+    public ResponseEntity<ApiError> handleModuloNoEncontrado(ModuloNoEncontradoException ex) {
+        log.warn("Modulo no encontrado: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
     }
 }
