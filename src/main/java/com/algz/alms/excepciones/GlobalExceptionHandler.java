@@ -126,4 +126,29 @@ public class GlobalExceptionHandler {
         log.warn("Plan de estudio no encontrada: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
     }
+    @ExceptionHandler(AsignaturaCorrelativaNoEncontradaException.class)
+    public ResponseEntity<ApiError> handleAsignaturaCorrelativaNoEncontrada(AsignaturaCorrelativaNoEncontradaException ex) {
+        log.warn("Correlativa no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+    @ExceptionHandler(AsignaturaNoEncontradaException.class)
+    public ResponseEntity<ApiError> handleAsignaturaNoEncontradaException(AsignaturaNoEncontradaException ex) {
+        log.warn("Asignatura no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+    @ExceptionHandler(DocenteAsignaturaNoEncontradaException.class)
+    public ResponseEntity<ApiError> handleDocenteAsignaturaNoEncontrada(DocenteAsignaturaNoEncontradaException ex) {
+        log.warn("Asignacion de Docente no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+    @ExceptionHandler(ModuloAsignaturaNoEncontradaException.class)
+    public ResponseEntity<ApiError> handleModuloAsignaturaNoEncontrada(ModuloAsignaturaNoEncontradaException ex) {
+        log.warn("Asignacion de Asignatura no encontrada: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
+    @ExceptionHandler(ModuloNoEncontradoException.class)
+    public ResponseEntity<ApiError> handleModuloNoEncontrado(ModuloNoEncontradoException ex) {
+        log.warn("Modulo no encontrado: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.of(404, "No encontrado", ex.getMessage()));
+    }
 }
