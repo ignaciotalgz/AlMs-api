@@ -20,6 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiError> handleIllegalArgument(IllegalArgumentException ex) {
+        log.warn("Solicitud invalida: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiError.of(400, "Solicitud invalida", ex.getMessage()));
+    }
+
     @ExceptionHandler(UsuarioDuplicadoException.class)
     public ResponseEntity<ApiError> handleDuplicado(UsuarioDuplicadoException ex) {
         log.warn("Intento de registro con email duplicado: {}", ex.getMessage());
