@@ -19,7 +19,17 @@
 # Log de errores y archivos locales si usaras un archivo de propiedades extra
 /logs/
 *.log
+
+# Configuracion local y credenciales: NUNCA versionar
 application-local.properties
+.env
+
+# Documentacion generada localmente (se mantiene fuera de Git por decision del usuario)
+/docs/
+/AGENTS.md
+/.opencode
+/.agents
+skills-lock.json
 
 HELP.md
 target/
